@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-end">
+    <div class="container" style="padding-top: 50px">
+        <div class="row justify-content-end">
+            <ul class="navbar-nav flex-row">
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link btn border border-light"
+                       th:href="@{'/employees/admin/' +${employee.id}+ '/delete'}"
+                       target="_self" th:utext="#{employee.button.delete}">Companies</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link btn border border-light"
+                       th:href="@{'/employees/admin/' +${employee.id}+ '/update'}"
+                       target="_self" th:utext="#{employee.button.update}">Companies</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row justify-content-center">
+
+            <div class="card testimonial-card">
+                <div class="card-up gradient-main"></div>
+                <!--Card image-->
+                <div class="avatar mx-auto white">
+                    <img class="rounded-circle" th:src="@{${employee.imageUrl}}"
+                         alt="employee img">
+                </div>
+
+                <!--Card content-->
+                <div class="card-body card-body-1 color-b">
+
+                    <!--Title-->
+                    <h4 class="card-title"
+                        th:text="${employee.firstName} + ' '+${employee.lastName}+' '+${employee.middleName}">Card
+                        title</h4>
+                    <hr>
+                    <h5 class="blue-text pb-2"><strong>Отдел</strong></h5>
+                    <p class="card-text" th:utext="${employee.department.name}"></p>
+                    <h5 class="blue-text pb-2"><strong>Описание</strong></h5>
+                    <p class="card-text" th:if="${employee.description == null}">Lorem ipsum dolor sit amet, consectetur
+                        adipisicing elit. Consequuntur cum
+                        deserunt doloribus explicabo magni voluptates.</p>
+                    <p class="card-text" th:if="${employee.description != null}" th:text="${employee.description}"></p>
+                    <h5 class="blue-text pb-2"><strong>Телефон</strong></h5>
+                    <p class="card-text" th:utext="${employee.phone}"></p>
+                    <div th:if="${employee.email != null}">
+                        <h5 class="blue-text pb-2"><strong>Почта</strong></h5>
+                        <p class="card-text" th:utext="${employee.email}"></p>
+                    </div>
+                    <h5 class="blue-text pb-2"><strong>Адресс</strong></h5>
+                    <p class="card-text"
+                       th:utext="${employee.address.city} + ' '+${employee.address.building}+' '+${employee.address.street}"></p>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${employee.salary != null}">
+                        <h5 class="blue-text pb-2"><strong>Зарплата</strong></h5>
+                        <p class="card-text" th:utext="${employee.salary}"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+</body>
+</html>

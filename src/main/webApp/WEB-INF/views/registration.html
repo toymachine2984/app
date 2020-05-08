@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <link rel="stylesheet"
+          href="/resources/node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.css">
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <link rel="stylesheet" href="/resources/MDB-Free/css/addons/datatables.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-end">
+
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="card w-40 br-d">
+                <div class="card-header gradient-main font-f-m" th:utext="#{page.form.registration.form}">
+
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/user/registration}" method="post" th:object="${user}">
+
+                        <div class="form-group">
+                            <label for="email" class="bmd-label-floating" th:utext="#{page.form.login.name}">Email
+                                address</label>
+                            <input type="email" id="email" class="form-control"
+                                   th:classappend="(${#fields.hasErrors('login')} ? 'is-invalid' : (${user.login} ? 'is-valid' : ''))"
+                                   name="email"
+                                   th:field="*{login}" required>
+                            <th:block th:if="${#fields.hasErrors('login')}">
+                                <div class="invalid-feedback" th:utext="#{page.form.registration.password}">
+                                    Please choose a username.
+                                </div>
+                            </th:block>
+                            <th:block th:if="!${#fields.hasErrors('login')}">
+                                <div class="valid-feedback" th:utext="#{page.form.registration.email}">
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pass" class="bmd-label-floating" th:utext="#{page.form.registration.password}">Password</label>
+                            <input type="password" id="pass" class="form-control"
+                                   th:classappend="(${#fields.hasErrors('password')} ? 'is-invalid' : (${user.password} ? 'is-valid' : ''))"
+                                   name="password"
+                                   th:field="*{password}" required>
+                            <span class="bmd-help">We'll never share your email with anyone else.</span>
+                            <th:block th:if="${#fields.hasErrors('password')}">
+                                <div class="invalid-feedback" th:utext="#{validation.user.create.field.password}">
+                                    Please choose a username.
+                                </div>
+                            </th:block>
+                            <th:block th:if="!${#fields.hasErrors('password')}">
+                                <div class="valid-feedback" th:utext="#{page.form.registration.password}">
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="passMtc" class="bmd-label-floating"
+                                   th:utext="#{page.form.registration.matchingPassword}">Password</label>
+                            <input type="password" id="passMtc" class="form-control"
+                                   th:classappend="(${#fields.hasErrors('matchingPassword')} ? 'is-invalid' : (${user.matchingPassword} ? 'is-valid' : ''))"
+                                   name="password"
+                                   th:field="*{matchingPassword}" required>
+                            <span class="bmd-help">We'll never share your email with anyone else.</span>
+                            <th:block th:if="${#fields.hasErrors('matchingPassword')}">
+                                <div class="invalid-feedback"
+                                     th:utext="#{validation.user.create.field.matchingPassword}">
+                                    Please choose a username.
+                                </div>
+                            </th:block>
+                            <th:block th:if="!${#fields.hasErrors('matchingPassword')}">
+                                <div class="valid-feedback" th:utext="#{page.form.registration.matchingPassword}">
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstName" class="bmd-label-floating"
+                                   th:utext="#{page.form.registration.firstName}">First Name</label>
+                            <input type="text" id="firstName" class="form-control"
+                                   th:classappend="(${#fields.hasErrors('firstName')} ? 'is-invalid' : (${user.firstName} ? 'is-valid' : ''))"
+                                   name="password"
+                                   th:field="*{firstName}" required>
+                            <th:block th:if="${#fields.hasErrors('firstName')}">
+                                <div class="invalid-feedback"
+                                     th:utext="#{validation.user.create.field.required}">
+                                    Please choose a username.
+                                </div>
+                            </th:block>
+                            <th:block th:if="!${#fields.hasErrors('firstName')}">
+                                <div class="valid-feedback" th:utext="#{page.form.registration.firstName}">
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName" class="bmd-label-floating"
+                                   th:utext="#{page.form.registration.lastName}">Last Name</label>
+                            <input type="text" id="lastName" class="form-control"
+                                   th:classappend="(${#fields.hasErrors('lastName')} ? 'is-invalid' : (${user.lastName} ? 'is-valid' : ''))"
+                                   name="password"
+                                   th:field="*{lastName}" required>
+                            <th:block th:if="${#fields.hasErrors('lastName')}">
+                                <div class="invalid-feedback"
+                                     th:utext="#{validation.user.create.field.required}">
+                                    Please choose a username.
+                                </div>
+                            </th:block>
+                            <th:block th:if="!${#fields.hasErrors('lastName')}">
+                                <div class="valid-feedback" th:utext="#{page.form.registration.lastName}">
+                                </div>
+                            </th:block>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">
+                            <th:block th:utext="#{page.form.submit}"></th:block>
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--<div class="mask rgba-black-light d-flex justify-content-center align-items-center">-->
+
+    <!--<div class="container" style="margin-top: 10%">-->
+
+    <!--<div class="row wow fadeIn">-->
+    <!--<div class="col-md-6 col-xl-5 mb-4">-->
+    <!--<div class="card">-->
+    <!--<div class="card-body">-->
+    <!--<form action="#" >-->
+    <!--<h3 class="dark-grey-text text-center">-->
+    <!--<strong ></strong>-->
+    <!--</h3>-->
+    <!--<hr>-->
+    <!--<div class="md-form">-->
+    <!--<i class="fas fa-key prefix grey-text"></i>-->
+    <!--<input type="text" id="form6" class="form-control validate"-->
+    <!--th:classappend="(${#fields.hasErrors('login')} ? 'invalid' : (${user.login} ? 'valid' : ''))"-->
+    <!--name="email"-->
+    <!--th:field="*{login}" required>-->
+    <!--<th:block th:if="${#fields.hasErrors('login')}">-->
+    <!--<label for="form6" class="col-md-12 col-xl-12 active"-->
+    <!--th:attr="data-error=${#fields.errors('login')}"-->
+    <!--th:utext="#{page.form.registration.email}">-->
+    <!--Your login</label>-->
+    <!--</th:block>-->
+    <!--<th:block th:if="!${#fields.hasErrors('login')}">-->
+    <!--<label for="form6" class="col-md-12 col-xl-12"-->
+    <!--th:utext="#{page.form.registration.email}">-->
+    <!--Your login</label>-->
+    <!--</th:block>-->
+    <!--</div>-->
+
+    <!--<div class="md-form">-->
+    <!--<i class="fas fa-user prefix grey-text"></i>-->
+    <!--<input type="password" id="form2" class="form-control validate" name="password"-->
+    <!--th:classappend="(${#fields.hasErrors('password')} ? 'invalid active' : (${user.password} ? 'valid' : ''))"-->
+    <!--th:field="*{password}" required>-->
+    <!--<th:block th:if="${#fields.hasErrors('password')}">-->
+    <!--<label for="form2" class="col-md-12 col-xl-12 active"-->
+    <!--th:attr="data-error=${#fields.errors('password')}"-->
+    <!--th:utext="#{page.form.registration.password}">-->
+    <!--Your password-->
+    <!--</label>-->
+    <!--</th:block>-->
+    <!--<th:block th:if="!${#fields.hasErrors('password')}">-->
+    <!--<label for="form2" class="col-md-12 col-xl-12"-->
+    <!--th:utext="#{page.form.registration.password}">-->
+    <!--Your password</label>-->
+    <!--</th:block>-->
+    <!--</div>-->
+
+    <!--<div class="md-form">-->
+    <!--<i class="fas fa-user prefix grey-text"></i>-->
+    <!--<input type="password" id="form3" class="form-control validate"-->
+    <!--name="matchingPassword"-->
+    <!--th:classappend="(${#fields.hasErrors('matchingPassword')} ? 'invalid active' : (${user.matchingPassword} ? 'valid' : ''))"-->
+    <!--th:field="*{matchingPassword}" required>-->
+    <!--<th:block th:if="${#fields.hasErrors('matchingPassword')}">-->
+    <!--<label for="form3" class="col-md-12 col-xl-12 active"-->
+    <!--th:attr="data-error=${#fields.errors('matchingPassword')}"-->
+    <!--th:utext="#{page.form.registration.matchingPassword}">-->
+    <!--Confirm password</label>-->
+    <!--</th:block>-->
+    <!--<th:block th:if="!${#fields.hasErrors('matchingPassword')}">-->
+    <!--<label for="form3" class="col-md-12 col-xl-12"-->
+    <!--th:utext="#{page.form.registration.matchingPassword}">-->
+    <!--Confirm password</label>-->
+    <!--</th:block>-->
+    <!--</div>-->
+
+    <!--<div class="md-form">-->
+    <!--<i class="fas fa-key prefix grey-text"></i>-->
+    <!--<input type="text" id="form4" class="form-control validate" name="firstName"-->
+    <!--th:classappend="(${#fields.hasErrors('firstName')} ? 'invalid' : (${user.firstName} ? 'valid' : ''))"-->
+    <!--th:field="*{firstName}">-->
+    <!--<th:block th:if="${#fields.hasErrors('firstName')}">-->
+    <!--<label for="form4" class="col-md-12 col-xl-12 active"-->
+    <!--th:attr="data-error=${#fields.errors('firstName')}"-->
+    <!--th:utext="#{page.form.registration.firstName}">First Name</label>-->
+    <!--</th:block>-->
+    <!--<th:block th:if="!${#fields.hasErrors('firstName')}">-->
+    <!--<label for="form4" class="col-md-12 col-xl-12"-->
+    <!--th:utext="#{page.form.registration.firstName}">First Name</label>-->
+    <!--</th:block>-->
+    <!--</div>-->
+
+    <!--<div class="md-form">-->
+    <!--<i class="fas fa-key prefix grey-text"></i>-->
+    <!--<input type="text" id="form5" class="form-control validate" name="lastName"-->
+    <!--th:classappend="(${#fields.hasErrors('lastName')} ? 'invalid' : (${user.lastName} ? 'valid' : ''))"-->
+    <!--th:field="*{lastName}">-->
+    <!--<th:block th:if="${#fields.hasErrors('lastName')}">-->
+    <!--<label for="form5" class="col-md-12 col-xl-12 active"-->
+    <!--th:attr="data-error=${#fields.errors('lastName')}"-->
+    <!--th:utext="#{page.form.registration.lastName}">Last Name</label>-->
+    <!--</th:block>-->
+    <!--<th:block th:if="!${#fields.hasErrors('firstName')}">-->
+    <!--<label for="form5" class="col-md-12 col-xl-12"-->
+    <!--th:utext="#{page.form.registration.lastName}">Last Name</label>-->
+    <!--</th:block>-->
+    <!--</div>-->
+
+    <!--<div class="text-center">-->
+    <!--<button class="btn btn-indigo" th:utext="#{page.form.submit}">Send-->
+    <!--<i class="fas fa-sign-in-alt ml-2">-->
+    <!--</i>-->
+    <!--</button>-->
+    <!--<hr>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+</main>
+<div th:replace="~{templates/header_footer.html:: footer}"></div>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+<!--<script src="/resources/MDB-Free/js/addons/datatables.min.js"></script>-->
+<!--<script src="/resources/companies.js"></script>-->
+</body>
+</html>

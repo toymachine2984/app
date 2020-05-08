@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <link rel="stylesheet" href="/resources/MDB-Free/css/addons/datatables.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main>
+
+
+</main>
+<div th:replace="~{templates/header_footer.html:: footer}"></div>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+<script src="/resources/MDB-Free/js/addons/datatables.min.js"></script>
+<script src="/resources/companies.js"></script>
+</body>
+</html>

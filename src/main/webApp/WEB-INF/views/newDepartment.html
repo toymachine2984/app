@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-end">
+    <div class="container" style="padding-top: 50px">
+        <div class="row justify-content-center">
+
+            <div class="card w-80 br-d">
+                <div class="card-header gradient-main font-f-m" th:utext="#{department.new.add}">
+
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/department/admin/add}" method='POST' th:object="${department}">
+                        <input type="number" th:field="*{id}" hidden>
+                        <div class="form-group">
+                            <label for="name" class="bmd-label-static">Наименование</label>
+                            <input type="text" class="form-control" id="name"
+                                   th:placeholder="#{department.description}" name='name' th:field="*{name}"
+                                   required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="bmd-label-static">Описание</label>
+                            <input type="text" class="form-control" id="description"
+                                   th:placeholder="#{department.name}" name='description' th:field="*{description}">
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <th:block th:utext="#{page.form.submit}"></th:block>
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-end">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card  br-d w-90 ">
+                <table class="table">
+                    <thead class="black white-text bg-main">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" th:utext="#{page.management.date}">First</th>
+                        <th scope="col" th:utext="#{page.management.startTime}">Last</th>
+                        <th scope="col" th:utext="#{page.management.endTime}">Handle</th>
+                        <th scope="col" th:utext=#{page.management.workTime}>Handle</th>
+                        <th scope="col" th:utext=#{page.management.action}>Handle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="management,iter :${managementTimes}" th:unless="${iter.last}">
+                        <th scope="row" th:text="${iter.index +1}">1</th>
+                        <td th:text="${management.currentDate}">Mark</td>
+                        <td th:text="${management.startDate}">Mark</td>
+                        <td th:text="${management.endDate}">Mark</td>
+                        <td th:text="${management.workTime}">Mark</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"
+                            th:utext="${#lists.size(managementTimes) == 0} ? '1': ${#lists.size(managementTimes)}"></th>
+                        <td th:text="${#dates.format(lastDay.currentDate, 'yyyy-MM-dd')}"></td>
+                        <div>
+                            <td th:if="${lastDay.startDate}" th:utext="${lastDay.startDate}"></td>
+                            <td th:unless="${lastDay.startDate}">
+                                <ul class="navbar-nav flex-row">
+                                    <li th:if="${start}">
+                                        <a class="nav-link btn border btn-primary"
+                                           th:href="@{'/management/'+${lastDay.id}+'/start'}"
+                                           target="_self" th:utext="#{page.management.startDay}">Companies</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </div>
+                        <div>
+                            <td th:if="${lastDay.endDate}" th:utext="${lastDay.endDate}"></td>
+                            <td th:unless="${lastDay.endDate}">
+                                <ul class="navbar-nav flex-row">
+                                    <li th:if="${end}">
+                                        <a class="nav-link btn border btn-primary"
+                                           th:href="@{'/management/'+${lastDay.id}+'/end'}"
+                                           target="_self" th:utext="#{page.management.endDay}">Companies</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </div>
+                        <td th:text="${lastDay.workTime}"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+</body>
+</html>

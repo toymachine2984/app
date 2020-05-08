@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-end">
+    <div class="container">
+        <div class="row justify-content-end">
+            <ul class="navbar-nav flex-row">
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link btn border border-light" th:href="@{/employees/admin/add}"
+                       target="_self" th:utext="#{employee.button.add}">Companies</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row justify-content-center">
+            <div class="card  br-d w-90 ">
+                <table class="table">
+                    <thead class="black white-text bg-main">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"  th:utext="#{page.employees.table.title.firstName}">First</th>
+                        <th scope="col"  th:utext="#{page.employees.table.title.lastName}">Last</th>
+                        <th scope="col"  th:utext="#{page.employees.table.title.middleName}">Handle</th>
+                        <th scope="col"  th:utext=#{page.employees.table.title.gender}>Handle</th>
+                        <th scope="col"  th:utext=#{page.employees.table.title.phone}>Handle</th>
+                        <th scope="col"  th:utext=#{page.employees.table.title.street}>Handle</th>
+                        <th scope="col"  th:utext=#{page.employees.table.title.department}>Handle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee,iter :${employees}">
+                        <th scope="row" th:text="${iter.index +1}">1</th>
+                        <td>
+                            <a th:href="@{'/employees/' + ${employee.id}}"
+                               target="_self" th:utext="${employee.firstName}"></a>
+                        </td>
+                        <td th:text="${employee.lastName}">Mark</td>
+                        <td th:text="${employee.middleName}">Mark</td>
+                        <td th:text="${employee.gender}">Mark</td>
+                        <td th:text="${employee.phone}">Mark</td>
+                        <td th:text="${employee.address.street}">Mark</td>
+                        <td th:text="${employee.department.name}">Mark</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</main>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+</body>
+</html>

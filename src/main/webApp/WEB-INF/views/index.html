@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Index page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-center">
+    <div class="full-page-intro">
+        <div class="bg-wood "></div>
+    </div>
+    <div class="container  d-flex flex-row align-items-center justify-content-center">
+        <div class="row"><!--col-xl-10-->
+            <div class="d-flex flex-column d-flex flex-column justify-content-center align-items-center border border-light shadow br-d    ">
+                <div class="font-f-m p-2 m-4">
+                    <h3>Make it simple</h3>
+                </div>
+                <hr class="w-75" align="center" size="2px" color="white">
+                <div class="w-75 text-justify p-2">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusantium ad autem, cumque
+                        dolorum, eligendi est iure libero odit perspiciatis quae quibusdam quis saepe sed sunt
+                        suscipit
+                        velit veniam.
+                    </p>
+                </div>
+                <div class="w-100 p-2">
+                    <ul class="d-flex justify-content-around align-items-center ul-btn-group">
+                        <li class="btn w-30  border border-light">Thanks</li>
+                        <li class="btn w-30  border border-light">More</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<div th:replace="~{templates/header_footer.html:: footer}"></div>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-end">
+    <div class="container" style="padding-top: 50px">
+        <div class="row justify-content-center">
+
+            <div class="card w-80 br-d">
+                <div class="card-header gradient-main font-f-m" th:utext="#{employee.new.add}">
+
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/employees/admin/add}" method='POST' th:object="${employee}">
+                        <input type="number" th:field="*{id}" hidden>
+                        <div class="form-group">
+                            <label for="firstName" class="bmd-label-static">Имя</label>
+                            <input type="text" class="form-control" id="firstName"
+                                   th:placeholder="#{employee.name.first}" name='firstName' th:field="*{firstName}"
+                                   required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="bmd-label-static">Фамилия</label>
+                            <input type="text" class="form-control" id="lastName"
+                                   th:placeholder="#{employee.name.last}" name='lastName' th:field="*{lastName}"
+                                   required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="middleName" class="bmd-label-static">Отчество</label>
+                            <input type="text" class="form-control" id="middleName"
+                                   th:placeholder="#{employee.name.middle}" name='middleName' th:field="*{middleName}"
+                                   required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="bmd-label-static">Электронная почта</label>
+                            <input type="text" class="form-control" id="email"
+                                   th:placeholder="#{employee.email}" name='email'
+                                   th:field="*{email}">
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="bmd-label-static">Телефон</label>
+                            <input type="text" class="form-control" id="phone"
+                                   th:placeholder="#{employee.phone}" name='phone' th:field="*{phone}" required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address.building" class="bmd-label-static">Дом</label>
+                            <input type="text" class="form-control" id="address.building"
+                                   th:placeholder="#{employee.address.building}" name='address.building'
+                                   th:field="*{address.building}" required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address.street" class="bmd-label-static">Улица</label>
+                            <input type="text" class="form-control" id="address.street"
+                                   th:placeholder="#{employee.address.street}" name='address.street'
+                                   th:field="*{address.street}" required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address.city" class="bmd-label-static">Город</label>
+                            <input type="text" class="form-control" id="address.city"
+                                   th:placeholder="#{employee.address.city}" name='address.city'
+                                   th:field="*{address.city}" required>
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" class="bmd-label-static">Пол</label>
+                            <select th:field="*{gender}" id="gender" class="mdb-select md-form form-control">
+                                <option th:value="'male'" th:text="#{employee.gender.male}"></option>
+                                <option th:value="'female'" th:text="#{employee.gender.female}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="department" class="bmd-label-static">Департамент</label>
+                            <select th:field="*{department.id}" id="department" class="mdb-select md-form form-control">
+                                <option th:each="d : ${departments}" th:value="${d.id}" name='employee.department' th:text="${d.name}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary" class="bmd-label-static">Заработная плата</label>
+                            <input type="text" class="form-control" id="salary"
+                                   th:placeholder="#{employee.salary}" name='salary'
+                                   th:field="*{salary}">
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="bmd-label-static">Описание</label>
+                            <input type="text" class="form-control" id="description"
+                                   th:placeholder="#{employee.description}" name='description'
+                                   th:field="*{description}">
+                            <span class="bmd-help">Имя</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <th:block th:utext="#{page.form.submit}"></th:block>
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+</body>
+</html>

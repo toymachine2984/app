@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="styles">
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="/resources/node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.css">
+    <link rel="stylesheet" href="/resources/css/index.css">
+    <link rel="stylesheet" href="/resources/node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="/resources/flags/flags.min.css">
+</head>
+
+<body>
+
+<div th:fragment="scripts">
+    <script src="/resources/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+            integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+            crossorigin="anonymous"></script>
+    <script src="/resources/node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js"></script>
+    <script>$(document).ready(function () {
+        $('body').bootstrapMaterialDesign();
+    });</script>
+    <script src="/resources/scirpts/index.js"></script>
+</div>
+<header th:fragment="header" class="navbar fixed-top p-0 flex-column shadow-none">
+    <div class="gradient-main d-flex justify-content-around align-items-center align-self-stretch">
+        <div class="navbar-brand">
+            <a th:href="@{/index}">
+                <svg height="50" width="50">
+                    <circle cx="25" cy="25" r="24" stroke="white" stroke-width="1" fill="none"/>
+                </svg>
+            </a>
+        </div>
+        <div class="d-flex flex-row w-80 justify-content-between align-items-center">
+            <ul class="navbar-nav flex-row justify-content-start">
+                <li sec:authorize="isAuthenticated()">
+                    <a class="nav-link btn border border-light" th:href="@{/employees}"
+                       target="_self" th:utext="#{page.emploess.title}">Companies</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" style="margin-left: 5px">
+                    <a class="nav-link btn border border-light" th:href="@{/department}"
+                       target="_self" th:utext="#{page.department.title}">Companies</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_USER')" style="margin-left: 5px">
+                    <a class="nav-link btn border border-light" th:href="@{/management}"
+                       target="_self" th:utext="#{page.management.title}">Companies</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav flex-row align-items-center justify-content-end"
+                th:with="i18nVar=${#response.getLocale().getLanguage()}">
+                <li th:if="${i18nVar !='kk'}" th:with="url=${#request.getRequestURI()}">
+                    <a th:href="@{${url} +'?lang=kk_KZ'}" class="nav-link" target="_self">
+                        <i class="flag flag-kz"></i>
+                    </a>
+                </li>
+                <li th:if="${(i18nVar !='ru')}" th:with="url=${#request.getRequestURI()}">
+                    <a th:href="@{${url}+ '?lang=ru_RU'}" class="nav-link" target="_self">
+                        <i class="flag flag-ru"></i>
+                    </a>
+                </li>
+                <li th:if="${i18nVar !='en'}" th:with="url=${#request.getRequestURI()}">
+                    <a th:href="@{${url} + '?lang=en_US'}" class="nav-link " target="_self">
+                        <i class="flag flag-us"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/login"
+                       class="nav-link btn border border-light"
+                       target="_self" sec:authorize="!isAuthenticated()">
+                        <th:block th:utext="#{page.navigation.title.signin}"></th:block>
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                    </a>
+                    <a href="/logout"
+                       class="nav-link btn border border-light"
+                       target="_self" sec:authorize="isAuthenticated()">
+                        <th:block th:utext="#{page.navigation.title.signout}"></th:block>
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="align-self-stretch">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
+             style="width:  100%; height: 2vw; vertical-align: bottom">
+            <defs>
+                <linearGradient id="main-head-grad">
+                    <stop offset="0%" stop-color="#F4CE53"/>
+                    <stop offset="100%" stop-color="#F59255"/>
+                </linearGradient>
+            </defs>
+            <!--<polygon class="polygon-main" fill="url(#main-grad)" points="0,0 1,0 4,90 100,90 100,100  0 100"/>-->
+            <polygon class="polygon-head-main" fill="url(#main-head-grad)"
+                     points="0,0 100,0 100,100 99,100 96,10 0,10 "/>
+        </svg>
+    </div>
+</header>
+<footer class="nav fixed-bottom  br-d justify-content-between align-content-stretch flex-column " th:fragment="footer">
+    <div class="w-100 ">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
+             style="width:  100%; height: 2vw; vertical-align: bottom">
+            <defs>
+                <linearGradient id="main-grad">
+                    <stop offset="0%" stop-color="#F69255"/>
+                    <stop offset="100%" stop-color="#F4CE53"/>
+                </linearGradient>
+            </defs>
+            <polygon class="polygon-main" fill="url(#main-grad)" points="0,0 1,0 4,90 100,90 100,100  0 100"/>
+        </svg>
+    </div>
+    <div class="font-f-m text-center w-100 gradient-main-r">
+        <p>
+            © 2020 Copyright
+        </p>
+    </div>
+</footer>
+</body>
+</html>

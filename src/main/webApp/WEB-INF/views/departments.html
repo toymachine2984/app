@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Companies page</title>
+    <th:block th:include="~{templates/header_footer.html :: styles}">
+    </th:block>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="~{templates/header_footer.html :: header}"></div>
+<main class="overlay d-flex align-items-end">
+    <div class="container">
+        <div class="row justify-content-end">
+            <ul class="navbar-nav flex-row">
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link btn border border-light" th:href="@{/department/admin/add}"
+                       target="_self" th:utext="#{employee.button.add}">Companies</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row justify-content-center">
+            <div class="card  br-d w-90 ">
+                <table class="table">
+                    <thead class="black white-text bg-main">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"  th:utext="#{page.departments.table.title.name}">First</th>
+                        <th scope="col"  th:utext="#{page.departments.table.title.description}">Last</th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col"  th:utext="#{page.departments.table.title.event}">Last</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d,iter :${departments}">
+                        <th scope="row" th:text="${iter.index +1}">1</th>
+                        <td th:text="${d.name}">Mark</td>
+                        <td th:text="${d.description}">Mark</td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <ul class="navbar-nav flex-row">
+                                <li>
+                                    <a class="nav-link btn border btn-primary" th:href="@{'/department/admin/' +${d.id}+ '/delete'}"
+                                       target="_self" th:utext="#{department.button.delete}">Companies</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</main>
+<th:block th:include="~{templates/header_footer.html :: scripts}">
+</th:block>
+</body>
+</html>
